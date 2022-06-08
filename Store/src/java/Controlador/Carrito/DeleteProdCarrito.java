@@ -6,9 +6,6 @@
 package Controlador.Carrito;
 
 import Logica.CarritoManager;
-import Logica.UsuariosManager;
-import Modelo.ProductoCarrito;
-import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,9 +14,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import org.json.simple.JSONObject;
 

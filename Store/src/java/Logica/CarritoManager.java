@@ -5,9 +5,12 @@ import Modelo.Producto;
 import Modelo.ProductoCarrito;
 import com.mysql.cj.jdbc.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -59,7 +62,8 @@ public class CarritoManager extends Conexion {
                         pc.setCantidad(items);
                         pc.setIdProducto(id);
                         pc.setIteracion(iteracion);
-                        pc.setSubtotal("$" + c);
+                        pc.setSubtotal("$" + c * items);
+                        pc.setSubtotalD(c);
                         list.add(pc);
 
                     }
@@ -74,7 +78,7 @@ public class CarritoManager extends Conexion {
 
     public int addProdUser(int idProd, int idUser) {
         int estatus;
-        
+
         try {
             Connection conexion = getConection();
             String query = "insert into carrito(idProducto,idUsuario) values(?,?)";
@@ -88,17 +92,16 @@ public class CarritoManager extends Conexion {
             return 0;
         }
     }
-    
-    
-    public int deleteProdUser(int idProd, int idUser){
-         int estatus = 0;
+
+    public int deleteProdUser(int idProd, int idUser) {
+        int estatus = 0;
         try {
             Connection con = getConection();
             String query = "delete from carrito  where idUsuario=? and idProducto=?";
             PreparedStatement st = con.prepareStatement(query);
 
             st.setInt(1, idUser);
-                 st.setInt(2, idProd);
+            st.setInt(2, idProd);
             estatus = st.executeUpdate();
 
             System.out.println("Producto Eliminado correctamente");
@@ -109,6 +112,78 @@ public class CarritoManager extends Conexion {
             System.out.println("Error al eliminar:" + E.getMessage());
             return 0;
         }
+    }
+
+    public int confirmarCompra(int idUser, String noTarjeta, String codigoSeg, String fechaSeg, int idDir) {
+        int estatus;
+        //get prods carrito 
+        List<ProductoCarrito> carritoProd = GetCarrito(idUser);
+        if (carritoProd.size() > 0) {
+            //get totalprods
+            double totalProds = 0;
+            for (ProductoCarrito pc : carritoProd) {
+                int cantidad = pc.getCantidad();
+                double subtotal = pc.getSubtotalD();
+                totalProds += cantidad * subtotal;
+            }
+
+            //create venta
+            try {
+                Connection conexion = getConection();
+                String query = "insert into venta(fechaVenta,TotalVenta,idDireccion,tarjetaPago,codigoTarjeta,fechaTarjeta) values(?,?,?,?,?,?)";
+                PreparedStatement st = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+                Date date = new Date(System.currentTimeMillis());
+
+                st.setDate(1, date);
+                st.setDouble(2, totalProds);
+                st.setInt(3, idDir);
+                st.setString(4, noTarjeta);
+                st.setString(5, codigoSeg);
+                st.setString(6, fechaSeg);
+                st.executeUpdate();
+                ResultSet rs = st.getGeneratedKeys();
+                int id = 0;
+
+                if (rs.next()) {
+                    id = rs.getInt(1);
+                    System.out.println("Inserted ID -" + id);
+                }
+                if (id != 0) {
+                    System.out.println("Compra correctamente generada---------------------------------->");
+
+                    //create productoventa
+                    for (ProductoCarrito pc : carritoProd) {
+                        String query2 = "insert into productoventa(idventa,idproducto,cantidad) values(?,?,?)";
+                        PreparedStatement st2 = conexion.prepareStatement(query2);
+                        st2.setInt(1, id);
+                        st2.setInt(2, pc.getIdProducto());
+                        st2.setInt(3, pc.getCantidad());
+                        estatus = st2.executeUpdate();
+                        System.out.println("Registrado correctamente en la compra---------------------------------->");
+                    }
+
+                    //create ventausuario
+                    String query3 = "insert into ventausuario(idusuario,idventa) values(?,?)";
+                    PreparedStatement st3 = conexion.prepareStatement(query3);
+
+                    st3.setInt(1, idUser);
+                    st3.setInt(2, id);
+                    estatus = st3.executeUpdate();
+                    System.out.println("Registrado correctamente en la compra---------------------------------->");
+                    return estatus = 1;
+                } else {
+                    System.out.println("Compra no generada---------------------------------->");
+                    return 0;
+                }
+            } catch (SQLException e) {
+                return 0;
+            }
+        } else {
+            System.out.println("Compra no generada por falta de productos---------------------------------->");
+            return 0;
+        }
+
     }
 
 }

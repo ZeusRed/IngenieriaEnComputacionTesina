@@ -10,7 +10,15 @@ package Modelo;
  * @author Acer ES 15
  */
 public class ProductoVenta {
-    int idProducto, idVenta, idProductoVenta;
+    int idProducto, idVenta, idProductoVenta,cantidad;
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 
     public ProductoVenta() {
     }

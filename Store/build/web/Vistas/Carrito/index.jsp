@@ -103,20 +103,32 @@
                     </a>
                     &nbsp;
                     &nbsp;
-                    <a class="btn btn-success" href="${pageContext.request.contextPath}/ConfirmarCompra">
+                    <c:if test="${carrito.size() != 0 }">  
+                        <a class="btn btn-success" href="${pageContext.request.contextPath}/ConfirmarCompra">
 
 
-                        <i class="bi bi-aspect-ratio"></i>
-                        Realizar Compra
-                    </a>
+                            <i class="bi bi-aspect-ratio"></i>
+                            Realizar Compra
+                        </a>
+                    </c:if>
+                    <c:if test="${carrito.size() == 0  }">  
+                        <a class="btn btn-success disabled" >
 
 
+                            <i class="bi bi-aspect-ratio"></i>
+                            Realizar Compra
+                        </a>
+                    </c:if>
 
 
 
                 </div>
             </div>
         </div>
-  <script src="${pageContext.request.contextPath}/Compras.js?v=2" type="text/javascript"></script>
+        <script>
+
+            var path = "${pageContext.request.contextPath}";
+        </script>
+        <script src="${pageContext.request.contextPath}/Compras.js?v=8" type="text/javascript"></script>
     </jsp:attribute>
 </mt:dashboard> 

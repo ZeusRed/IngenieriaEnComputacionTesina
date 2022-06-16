@@ -73,6 +73,7 @@ public class PedidosManager extends Conexion {
                     pv.setIdProductoVenta(rs3.getInt(1));
                     pv.setIdVenta(rs3.getInt(2));
                     pv.setIdProducto(rs3.getInt(3));
+                    pv.setCantidad(rs3.getInt(4));
                     productosVentas.add(pv);
                 }
             }
@@ -90,24 +91,27 @@ public class PedidosManager extends Conexion {
                 prod.setDescripcion(rs3.getString(2));
                 prod.setPrecio(rs3.getDouble(3));
                 prod.setExistencia(rs3.getInt(4));
-
+ 
                 prod.setIdcattipoproducto(rs3.getInt(5));
-
+                 
                 Blob image = (Blob) rs3.getBlob(6);
                 if (image != null) {
                     prod.setImagen(image.getBytes(1, (int) image.length()));
 
                     prod.setBase64Image(Base64.getEncoder().encodeToString(prod.getImagen()));
                 }
+                prod.setIteracion(pv.getCantidad());
                 productos.add(prod);
                 }
             }
+            //calcular la cantidad y el subtotal
             for(Producto prod   : productos){
                 DetalleVenta detalle= new DetalleVenta();
                 detalle.setProducto(prod.getDescripcion());
-                detalle.setSubtotal(prod.getPrecio());
+                detalle.setSubtotal(prod.getPrecio()*prod.getIteracion());
                 detalle.setBase64Image(prod.getBase64Image());
-                detalle.setCantidad(1);
+                detalle.setCantidad(prod.getIteracion());
+                detalle.setPrecio(prod.getPrecio());
                 productosVentaUsuario.add(detalle);
             }
             

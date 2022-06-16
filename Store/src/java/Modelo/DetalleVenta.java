@@ -3,7 +3,15 @@ package Modelo;
 public class DetalleVenta {
 
     String Producto, base64Image;
-    double Cantidad, Subtotal;
+    double Cantidad, Subtotal, precio;
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
     public DetalleVenta() {
     }

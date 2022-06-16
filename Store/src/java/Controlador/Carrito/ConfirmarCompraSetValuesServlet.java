@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador.Carrito;
 
-import Logica.DireccionesManager;
-import Logica.UsuariosManager;
-import Modelo.Direccion;
-import Modelo.Usuario;
+import Logica.CarritoManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,36 +10,40 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
+import org.json.simple.JSONObject;
 
-/**
- *
- * @author Acer ES 15
- */
-@WebServlet(name = "ConfirmarCompra", urlPatterns = {"/ConfirmarCompra"})
-public class ConfirmarCompraServlet extends HttpServlet {
+@WebServlet(name = "ConfirmarCompraSetValues", urlPatterns = {"/ConfirmarCompraSetValues"})
+public class ConfirmarCompraSetValuesServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
+            String noTarjeta = request.getParameter("noTarjeta");
+            String codigoSeg = request.getParameter("codSeg");
+            String fechaSeg = request.getParameter("fecSeg");
+            int idDireccion = Integer.parseInt(request.getParameter("idDir"));
+
             Cookie[] my_cookies = null;
 
-            // Get an array of Cookies associated with the this domain
             my_cookies = request.getCookies();
             Optional<String> val = leerCookie("User_id", my_cookies);
 
             int valorSubmit = Integer.parseInt(val.get());
-            UsuariosManager manager = new UsuariosManager();
-            Usuario usuario = manager.GetUsuario(valorSubmit);
-            //obtener las direcciones del usuario para registrar
-            DireccionesManager manager2 = new DireccionesManager();
-            List<Direccion> direcciones = manager2.getDirecciones(usuario.getIdUsuario());
-            //regresar direcciones
-            request.setAttribute("direcciones", direcciones);
-            request.getRequestDispatcher("Vistas/Carrito/ConfirmarCompra.jsp").forward(request, response);
+            CarritoManager manager = new CarritoManager();
+
+            int estatus = manager.confirmarCompra(valorSubmit, noTarjeta, codigoSeg, fechaSeg, idDireccion);
+            JSONObject data = new JSONObject();
+            if (estatus == 1) {
+
+                data.put("isCompraConfirmed", true);
+            } else {
+
+                data.put("isCompraConfirmed", false);
+            }
+            out.print(data.toString());
         }
     }
 

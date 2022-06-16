@@ -229,11 +229,11 @@
         </div>
 
 
-        <script>
+      <!--  <script>
 
             var path = "${pageContext.request.contextPath}";
         </script>
         <script src="${pageContext.request.contextPath}/Productos.js?v=12" type="text/javascript"></script>
-
+-->
     </jsp:attribute>
 </mt:dashboard>

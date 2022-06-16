@@ -6,7 +6,7 @@ function Model() {
     th.ap = ko.observable("");
     th.am = ko.observable("");
     th.correo = ko.observable("");
-
+ 
     th.reloadTable = function () {
         th.tableCatUsers.ajax.reload(null, false);
         th.tableUsers.ajax.reload(null, false);

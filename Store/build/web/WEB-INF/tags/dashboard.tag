@@ -62,7 +62,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar" aria-label="Buscar" style="display:none;">  
-            <div class="form-control form-control-dark w-100">
+            <div class="form-control form-control-dark w-100" style="background-color:#212529 ">
 
             </div>
             <div class="navbar-nav">
@@ -81,6 +81,15 @@
                 </div>
 
             </div>
+            <div class="navbar-nav">
+                <div class="nav-item text-nowrap">
+                    <a class="nav-link px-3" href="${pageContext.request.contextPath}/Direcciones">
+                        <i class="bi bi-geo-alt"></i>
+                        Mis direcciones</a>
+                </div>
+
+            </div>
+
             <div class="navbar-nav">
                 <div class="nav-item text-nowrap"> <!--href="${pageContext.request.contextPath}/LogOut"-->
                     <a class="nav-link px-3" id="logOut">
@@ -138,15 +147,15 @@
                             </li>
                         </ul>
 
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted" >
-                            <span>Categorias</span>
-                            <a class="link-secondary" href="#" aria-label="Add a new report" id="cat">
-                                <span data-feather="plus-circle" style="color:red"></span>
-                            </a>
-                        </h6>
-                        <!--
-                        Generar categorias dinamicamente
-                        -->
+                                             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted" >
+                                                 <span>Categorias</span>
+                                                                      <!--   <a class="link-secondary" href="#" aria-label="Add a new report" id="cat">
+                                                     <span data-feather="plus-circle" style="color:red"></span>
+                                                 </a> -->
+                                             </h6>
+                                          
+                                  
+                       
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/DatLaptosSource?idCP=1">

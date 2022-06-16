@@ -26,6 +26,7 @@
                                     <th scope="col"></th>
                                     <th scope="col">Producto</th>
                                     <th scope="col">Cantidad</th>
+                                     <th scope="col">Precio</th>
                                     <th scope="col">Subtotal</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -48,7 +49,8 @@
                                     </td>
                                     <td>${p.getProducto()}</td>
                                     <td>${p.getCantidad()}</td>
-                                    <td>${p.getSubtotal()}</td>
+                                     <td>$${p.getPrecio()}</td>
+                                    <td>$${p.getSubtotal()}</td>
                                     <td><button type="button" class="btn btn-success">Volver a comprar</button></td>
                                 </tr>
                                   </c:forEach>

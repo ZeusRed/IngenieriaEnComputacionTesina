@@ -216,7 +216,7 @@ SessionLogic sl= new SessionLogic();
                     <input type="text" placeholder="Email" data-bind="value:correo">
                     <input type="password" placeholder="Contraseña" data-bind="value:pwd">
                     <input type="button"   id="Inicio" value="INGRESAR" data-bind="click:acceso">
-                    <a href="Vistas/error.jsp">Recuperar Contraseña?</a>
+                  <!--  <a href="Vistas/error.jsp">Recuperar Contraseña?</a>-->
                 </div>
                 <div class="register-show">
                     <h2>REGISTRAR</h2>

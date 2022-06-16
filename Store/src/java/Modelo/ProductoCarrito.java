@@ -4,6 +4,7 @@ public class ProductoCarrito {
 
     private int idProducto, cantidad, idCarrito, iteracion;
     private String descripcion,subtotal;
+    private double subtotalD;
 
     public ProductoCarrito() {
     }
@@ -18,6 +19,14 @@ public class ProductoCarrito {
 
     public int getCantidad() {
         return cantidad;
+    }
+
+    public double getSubtotalD() {
+        return subtotalD;
+    }
+
+    public void setSubtotalD(double subtotalD) {
+        this.subtotalD = subtotalD;
     }
 
     public void setCantidad(int cantidad) {

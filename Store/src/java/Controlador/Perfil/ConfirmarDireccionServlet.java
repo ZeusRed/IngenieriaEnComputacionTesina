@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador.Carrito;
+package Controlador.Perfil;
 
 import Logica.DireccionesManager;
-import Logica.UsuariosManager;
 import Modelo.Direccion;
-import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,20 +16,32 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Acer ES 15
  */
-@WebServlet(name = "ConfirmarCompra", urlPatterns = {"/ConfirmarCompra"})
-public class ConfirmarCompraServlet extends HttpServlet {
+@WebServlet(name = "ConfirmarDireccion", urlPatterns = {"/ConfirmarDireccion"})
+public class ConfirmarDireccionServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+
+            String calle = request.getParameter("calle");
+            String colonia = request.getParameter("colonia");
+            int cp = Integer.parseInt(request.getParameter("cp"));
+            int numero = Integer.parseInt(request.getParameter("numero"));
+
+            Direccion dir = new Direccion();
+
+            dir.setCalle(calle);
+            dir.setColonia(colonia);
+            dir.setCodigoPostal(cp);
+            dir.setNumero(numero);
 
             Cookie[] my_cookies = null;
 
@@ -39,15 +49,18 @@ public class ConfirmarCompraServlet extends HttpServlet {
             my_cookies = request.getCookies();
             Optional<String> val = leerCookie("User_id", my_cookies);
 
-            int valorSubmit = Integer.parseInt(val.get());
-            UsuariosManager manager = new UsuariosManager();
-            Usuario usuario = manager.GetUsuario(valorSubmit);
-            //obtener las direcciones del usuario para registrar
-            DireccionesManager manager2 = new DireccionesManager();
-            List<Direccion> direcciones = manager2.getDirecciones(usuario.getIdUsuario());
-            //regresar direcciones
-            request.setAttribute("direcciones", direcciones);
-            request.getRequestDispatcher("Vistas/Carrito/ConfirmarCompra.jsp").forward(request, response);
+            int idUser = Integer.parseInt(val.get());
+            DireccionesManager manager = new DireccionesManager();
+            int estatus = manager.saveDireccion(dir, idUser);
+            JSONObject data = new JSONObject();
+            if (estatus == 1) {
+
+                data.put("isNewDireccion", true);
+            } else {
+
+                data.put("isNewDireccion", false);
+            }
+            out.print(data.toString());
         }
     }
 

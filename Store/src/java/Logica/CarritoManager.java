@@ -170,6 +170,15 @@ public class CarritoManager extends Conexion {
                     st3.setInt(1, idUser);
                     st3.setInt(2, id);
                     estatus = st3.executeUpdate();
+
+                    String queryd = "delete from carrito  where idUsuario=?";
+                    PreparedStatement std = conexion.prepareStatement(queryd);
+                    std.setInt(1, idUser);
+
+                    estatus = std.executeUpdate();
+
+                    System.out.println("Registrado correctamente en la compra---------------------------------->");
+
                     System.out.println("Registrado correctamente en la compra---------------------------------->");
                     return estatus = 1;
                 } else {

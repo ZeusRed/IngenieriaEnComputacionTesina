@@ -58,7 +58,7 @@
                                     <div class="card-body text-center">
                                         <h4 class="card-title"> ${e.getDescripcion()}</h4>
                                         <p class="text-muted">Desde $${e.getPrecio()}</p>
-                                        <a class="btn btn-outline-primary btn-sm" href="#" data-abc="true">Comprar</a>
+                                        <button class="btn btn-outline-primary btn-sm" id="${e.getIdProducto()}" onclick="modeloCarrito.agregar(this.id)"  data-abc="true">Comprar</button>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
             
             var path = "${pageContext.request.contextPath}";
         </script>
-        <script src="${pageContext.request.contextPath}/Productos.js?v=2" type="text/javascript"></script>
-
+        <!--<script src="${pageContext.request.contextPath}/Productos.js?v=2" type="text/javascript"></script>-->
+              <script src="${pageContext.request.contextPath}/Compras.js?v=2" type="text/javascript"></script>
     </jsp:attribute>
 </mt:dashboard>

@@ -32,11 +32,11 @@ public class Consulta extends HttpServlet {
                UsuariosManager manager = new UsuariosManager();
             Usuario usuario = manager.GetUsuario(valorSubmit);
                if(usuario.getIdUsuario()==0){
-                    request.setAttribute("detalle1", usuario);
+                    request.setAttribute("detalle", usuario);
            //  request.getRequestDispatcher("/Vistas/AccionesUsuario/EditarUsuario.jsp").forward(request, response);
                 request.getRequestDispatcher("Vistas/error.jsp").forward(request, response);
                }else{
-                    request.setAttribute("detalle1", usuario);
+                    request.setAttribute("detalle", usuario);
            //  request.getRequestDispatcher("/Vistas/AccionesUsuario/EditarUsuario.jsp").forward(request, response);
                 request.getRequestDispatcher("Vistas/Usuarios/detalleUsuario.jsp").forward(request, response);
                }

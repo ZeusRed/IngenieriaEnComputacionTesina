@@ -35,7 +35,7 @@
             }
         </style>
          
-        <c:if test="${detalle == null}">
+        <c:if test="${detalle != null}">
            <!-- <p>Welcome, ${detalle.getNombre()}</p>-->
 
             <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3  "> 

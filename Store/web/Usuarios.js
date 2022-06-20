@@ -51,9 +51,9 @@ function Model() {
                 {title: "Id", data: "id"},
                 {title: "Descripcion", data: "descripcion"},
 
-                {
-                    title: 'Acciones', orderable: false,
-                    data: null, "render": function (data) {
+               // {
+                  //  title: 'Acciones', orderable: false,
+                    //data: null, "render": function (data) {
                         /*var control = '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>'; //'<div class="input-group acciones"> <div class="input-group-prepend">  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"><i class="fa fa-files-o"></i> </a> <div class="dropdown-menu">';
                          control+='   <ul class="dropdown-menu">'  
                          control += '<a class="dropdown-item" href="#">Action</a>';//'<a class="dropdown-item" id="' + data.id + '"  onclick="model.verXML(\'' + data.id + '\');" >  Editar </a>';
@@ -61,15 +61,15 @@ function Model() {
                          
                          
                          control += '</ul></div>'//'</div></div></div>';*/
-                        var control = '';
+                      //  var control = '';
 
-                        control += '<button class="btn bng-transparent" type="button"  id="' + data.id + '" onclick="modeloUSr.editarCat(\'' + data.id + '\');"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3" aria-hidden="true"><path d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"></path> </svg>&nbsp;</button>&nbsp;';
+                       // control += '<button class="btn bng-transparent" type="button"  id="' + data.id + '" onclick="modeloUSr.editarCat(\'' + data.id + '\');"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3" aria-hidden="true"><path d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"></path> </svg>&nbsp;</button>&nbsp;';
 
                        // control += '<button class="btn bg-transparent" type="button"  id="' + data.id + '" onclick="modeloUSr.eliminarCat(\'' + data.id + '\');"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash" aria-hidden="true"><polyline points=\"3 6 5 6 21 6\"></polyline><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"></path></svg>&nbsp;</button>';
 
-                        return control;
-                    }
-                }
+                        //return control;
+                    //}
+                //}
             ],
             language: Helper.dataTablesLanguage
 
@@ -131,7 +131,7 @@ function Model() {
                         control += '<button class="btn bng-transparent" type="button"  id="' + data.id + '" onclick="modeloUSr.getDetalle(\'' + data.id + '\');"><i class="bi bi-eye"></i>&nbsp;</button>&nbsp;';
 
                         control += '<button class="btn b   g-transparent" type="button"  id="' + data.id + '" onclick="modeloUSr.getDetalleEditar(\'' + data.id + '\');"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3" aria-hidden="true"><path d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"></path> </svg>&nbsp;</button>&nbsp;';
-                        control += '<button class="btn bg-transparent" type="button"  id="' + data.id + '" onclick="modeloUSr.eliminarModal(\'' + data.id + '\');"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash" aria-hidden="true"><polyline points=\"3 6 5 6 21 6\"></polyline><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"></path></svg>&nbsp;</button>';
+                       // control += '<button class="btn bg-transparent" type="button"  id="' + data.id + '" onclick="modeloUSr.eliminarModal(\'' + data.id + '\');"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash" aria-hidden="true"><polyline points=\"3 6 5 6 21 6\"></polyline><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"></path></svg>&nbsp;</button>';
 
                         return control;
                     }
@@ -143,7 +143,7 @@ function Model() {
 
     };
 
-    th.getDetalle = function (id) {
+    th.getDetalle = function (id) {//ConsultaUsuario
         var p = window.path + "/ConsultaUsuario?id=" + id;
         window.location.href = p;
     };

@@ -70,7 +70,7 @@
             //  var editar = '@User.IsInRole("ActivoFijo.Editar")' == 'True';
             var path = "${pageContext.request.contextPath}";
         </script>
-        <script src="${pageContext.request.contextPath}/Usuarios.js?v=7" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/Usuarios.js?v=9" type="text/javascript"></script>
 
     </jsp:attribute>
 </mt:dashboard>
